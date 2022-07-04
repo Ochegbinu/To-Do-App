@@ -15,7 +15,8 @@ class TaskController extends Controller
     public function index()
     {
       $tasks = Task::all();
-      return view('task')->with('tasks', $tasks);
+      $pages = Task::paginate(5);
+      return view('task', compact('tasks', 'pages'));
       
     }
     public function seeTask()
@@ -117,13 +118,13 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail($id);
 
-        $task->update([
-            'completed' => 1,
-        ]);
+        // $task->update([
+        //     'completed' => 1,
+        // ]);
 
-        // $task->completed = 1;
+        $task->completed = 1;
 
-        // $task->save();
+        $task->save();
 
         return redirect()->back();
 
